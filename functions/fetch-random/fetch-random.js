@@ -6,6 +6,7 @@ const handler = async (event) => {
 
   const API_SECRET = process.env.API_SECRET
   const url = `https://www.thecocktaildb.com/api/json/v2/${API_SECRET}/randomselection.php`
+  // console.log('fetch-random func ' + url)
 
   try {
     const { data } = await axios.get(url)

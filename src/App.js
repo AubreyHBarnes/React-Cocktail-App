@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
+import axios from 'axios';
 
-function App() {
+function SearchResults() {
+  const [data, setData] = useState({ drinks: [] });
+  // const [query, setQuery] = useState('react');
+
+  useEffect(() => {
+    // let ignore = false;
+
+    async function fetchData() {
+      const result = await axios(`/.netlify/functions/fetch-random`);
+      setData(result.data);
+      // if (!ignore) setData(result.data);
+    }
+
+    fetchData();
+    // return () => { ignore = true; }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+
+      <ul>
+        {data.drinks.map(drink => (
+          <li key={drink.idDrink}>
+            {/* <a href={drink.url}>{drink.title}</a> */}
+            <p>{drink.strDrink}</p>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 
-export default App;
+export default SearchResults;
+
+
+
+
+
+// const rootElement = document.getElementById("root");
+// ReactDOM.render(<SearchResults />, rootElement);
