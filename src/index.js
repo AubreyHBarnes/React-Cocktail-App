@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SearchResults from './App';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import RandomTen from './components/RandomTen';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SearchResults />
+    <CssBaseline />
+    <RandomTen />
   </React.StrictMode>,
   document.getElementById('root')
 );
