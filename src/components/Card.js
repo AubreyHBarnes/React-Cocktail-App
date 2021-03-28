@@ -13,23 +13,23 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 // import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+// import { createMuiTheme } from '@material-ui/core/styles';
 
-const titleFont = createMuiTheme({
-    typography: {
-      fontFamily: [
-        'Lato',
-        'sans-serif',
-      ].join(','),
-    },});
+// const titleFont = createMuiTheme({
+//     typography: {
+//       fontFamily: [
+//         'Lato',
+//         'sans-serif',
+//       ].join(','),
+//     },});
 
-    const bodyFont = createMuiTheme({
-        typography: {
-          fontFamily: [
-            'Playfair Display',
-            'serif',
-          ].join(','),
-        },});
+//     const bodyFont = createMuiTheme({
+//         typography: {
+//           fontFamily: [
+//             'Playfair Display',
+//             'serif',
+//           ].join(','),
+//         },});
 
 const useStyles = makeStyles({
   root: {
