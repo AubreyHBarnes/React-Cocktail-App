@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 // import Dialog from '@material-ui/core/Dialog'
 // import DialogActions from '@material-ui/core/DialogActions';
@@ -54,7 +54,7 @@ React.useEffect(() => {
 <>
     <div className={modalClasses.modalHeader}>
       <DialogTitle className={modalClasses.modalTitle} id="scroll-dialog-title">{props.strDrink}</DialogTitle>
-      <img className={modalClasses.modalImg} src={props.strDrinkThumb} />
+      <img className={modalClasses.modalImg} alt={props.strDrink} src={props.strDrinkThumb} />
     </div>
         <DialogContent dividers={true}>
           <DialogContentText
