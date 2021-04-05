@@ -6,7 +6,8 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 
 import DetailModal from './DetailModal'
 
-import Modal from '@material-ui/core/Modal';
+// import Modal from '@material-ui/core/Modal';
+import Dialog from '@material-ui/core/Dialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +70,8 @@ const handleClick = async (fetchId) => {
     
 }
 
+
+
   return (
     <>
 
@@ -83,14 +86,15 @@ const handleClick = async (fetchId) => {
         </GridListTile>
          ))}
 
-        <Modal
+        <Dialog
           open={open}
           onClose={handleClose}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
+          scroll={'paper'}
+          aria-labelledby="scroll-dialog-title"
+          aria-describedby="scroll-dialog-description"
         >
-          <div><DetailModal {...singleDrink} /></div>
-      </Modal>
+          <DetailModal {...singleDrink} />
+      </Dialog>
       
     </>
   );
