@@ -3,16 +3,13 @@ import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-
 import DetailModal from './DetailModal'
-
-// import Modal from '@material-ui/core/Modal';
 import Dialog from '@material-ui/core/Dialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 150,
-    maxHeight: 150
+    maxWidth: '400px',
+    margin: '0 auto'
   },
   bullet: {
     display: 'inline-block',
@@ -42,6 +39,8 @@ export default function SimpleCard(props) {
 
   const [data, setData] = useState(null)
   const [open, setOpen] = useState(false);
+  const [IngredientName, setIngredientName] = useState([])
+  const [IngredientQty, setIngredientQty] = useState([])
   const [singleDrink, setsingleDrink] = useState(null)
 
   const handleOpen = () => {
@@ -50,15 +49,44 @@ export default function SimpleCard(props) {
 
   const handleClose = () => {
     setOpen(false);
+    setIngredientName([])
+    setIngredientQty([])
   };
 
+  
+
 useEffect(() => {
-  if (data === null) {
+
+  const printMe = (printData) => {
+    // let IngredientName = [];
+    // let IngredientQty = []; 
+    
+
+    for (let key in printData) {
+      if (printData[key] && printData[key] !== "" && key.includes('Ingredient')) {
+        // IngredientName.push(printData[key])
+        setIngredientName(prevArr => [...prevArr, printData[key]])
+      }
+
+      if (printData[key] && printData[key] !== "" && key.includes('Measure')) {
+        // IngredientQty.push(printData[key])
+        setIngredientQty(prevArr => [...prevArr, printData[key]])
+      } else if (key.includes('Measure') && !printData[key]) {
+        // IngredientQty.push('')
+        return
+      }
+    }
+    
+  }
+
+  if (!data) {
     return //the first click is always null, due to setstate being async. This is for covering that case
   } else {
     
     handleOpen()
     setsingleDrink(data.drinks[0])
+    let print = data
+    printMe(print.drinks[0])
 
   }
   
@@ -67,6 +95,7 @@ useEffect(() => {
 const handleClick = async (fetchId) => {
     const result = await axios(`/.netlify/functions/fetch-by-Id?idQuery=${fetchId}`)
     setData(result.data)
+    
     
 }
 
@@ -87,13 +116,14 @@ const handleClick = async (fetchId) => {
          ))}
 
         <Dialog
+          className={classes.root}
           open={open}
           onClose={handleClose}
           scroll={'paper'}
           aria-labelledby="scroll-dialog-title"
           aria-describedby="scroll-dialog-description"
         >
-          <DetailModal {...singleDrink} />
+          <DetailModal {...singleDrink} IngredientName={IngredientName} IngredientQty={IngredientQty} />
       </Dialog>
       
     </>

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {  useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 // import Dialog from '@material-ui/core/Dialog'
 // import DialogActions from '@material-ui/core/DialogActions';
@@ -29,26 +29,31 @@ const containerStyles = makeStyles(() => ({
 export default function DetailModal(props) {
 
   const modalClasses = containerStyles();
-
-  // const [ingredientName, setIngredient] = useState([])
-
-  // const getIngredients = () => {
-  //   for (var key in props) {
-  //     console.log(key)
-  //   }
-  // }
-
-  // getIngredients();
+  // const [recipe, setRecipe] = useState([])
 
   const descriptionElementRef = React.useRef(null);
-React.useEffect(() => {
-  
+
+  useEffect(() => {
+    
     const { current: descriptionElement } = descriptionElementRef;
     if (descriptionElement !== null) {
       descriptionElement.focus();
-    
+      
+    }
+    // for (let i = 0; i < props.IngredientName.length; i++) {
+    //   setRecipe(prevArr => [...prevArr, `${props.IngredientQty[i] + ' ' + props.IngredientName[i]}`])
+    // }
+
+    // console.log(recipe)
+  }, []);
+
+  let recipe = [];
+  let recipeNum = props.IngredientName.length;
+
+  for (let i = 0; i < recipeNum; i++) {
+    let item = React.createElement('p', {key: i}, `${props.IngredientQty[i]} ${props.IngredientName[i]}`)
+    recipe.push(item)
   }
-}, []);
 
   return (
 <>
@@ -57,6 +62,7 @@ React.useEffect(() => {
       <img className={modalClasses.modalImg} alt={props.strDrink} src={props.strDrinkThumb} />
     </div>
         <DialogContent dividers={true}>
+          {recipe}
           <DialogContentText
             id="scroll-dialog-description"
             ref={descriptionElementRef}
