@@ -49,8 +49,8 @@ export default function SimpleCard(props) {
 
   const handleClose = () => {
     setOpen(false);
-    setIngredientName([])
-    setIngredientQty([])
+    setTimeout(function(){ setIngredientName([]); setIngredientQty([]); }, 500);
+    
   };
 
   
@@ -58,21 +58,15 @@ export default function SimpleCard(props) {
 useEffect(() => {
 
   const printMe = (printData) => {
-    // let IngredientName = [];
-    // let IngredientQty = []; 
-    
 
     for (let key in printData) {
       if (printData[key] && printData[key] !== "" && key.includes('Ingredient')) {
-        // IngredientName.push(printData[key])
         setIngredientName(prevArr => [...prevArr, printData[key]])
       }
 
       if (printData[key] && printData[key] !== "" && key.includes('Measure')) {
-        // IngredientQty.push(printData[key])
         setIngredientQty(prevArr => [...prevArr, printData[key]])
       } else if (key.includes('Measure') && !printData[key]) {
-        // IngredientQty.push('')
         return
       }
     }

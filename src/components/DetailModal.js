@@ -51,8 +51,15 @@ export default function DetailModal(props) {
   let recipeNum = props.IngredientName.length;
 
   for (let i = 0; i < recipeNum; i++) {
-    let item = React.createElement('p', {key: i}, `${props.IngredientQty[i]} ${props.IngredientName[i]}`)
-    recipe.push(item)
+    if (!props.IngredientQty[i]) {
+      let item = React.createElement('p', {key: i}, `${props.IngredientName[i]}`)
+      recipe.push(item)
+    } else {
+      let item = React.createElement('p', {key: i}, `${props.IngredientQty[i]} ${props.IngredientName[i]}`)
+      recipe.push(item)
+    }
+    
+    
   }
 
   return (
