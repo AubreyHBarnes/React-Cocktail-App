@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import RandomTen from './components/RandomTen';
-
+import Popular from './components/Popular'
+import DailyDrink from './components/DailyDrink';
 ReactDOM.render(
   <>
     <CssBaseline />
+    <DailyDrink />
     <RandomTen />
+    <Popular />
   </>,
   document.getElementById('root')
 );

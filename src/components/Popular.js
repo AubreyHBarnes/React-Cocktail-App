@@ -16,13 +16,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function RandomTen() {
+function Popular() {
   const [data, setData] = useState({ drinks: [] });
 
   useEffect(() => {
 
     async function fetchData() {
-      const result = await axios(`/.netlify/functions/fetch-random`);
+      const result = await axios(`/.netlify/functions/fetch-popular`);
       setData(result.data);
 
     }
@@ -35,7 +35,7 @@ function RandomTen() {
 
   return (
     <>
-      <h4>Try Something New</h4>
+      <h4>Most Popular</h4>
       <div className={classes.root}>
         <GridList className={classes.gridList} cols={2.5}>
           <SimpleCard randomDrinks={data.drinks} />
@@ -45,7 +45,7 @@ function RandomTen() {
   );
 }
 
-export default RandomTen;
+export default Popular;
 
 
 

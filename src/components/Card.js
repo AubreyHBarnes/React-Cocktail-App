@@ -6,6 +6,12 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import DetailModal from './DetailModal'
 import Dialog from '@material-ui/core/Dialog';
 
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: '400px',
@@ -49,11 +55,9 @@ export default function SimpleCard(props) {
 
   const handleClose = () => {
     setOpen(false);
-    setTimeout(function(){ setIngredientName([]); setIngredientQty([]); }, 500);
+    setTimeout(function(){ setIngredientName([]); setIngredientQty([]); }, 400);
     
   };
-
-  
 
 useEffect(() => {
 
@@ -120,6 +124,98 @@ const handleClick = async (fetchId) => {
           <DetailModal {...singleDrink} IngredientName={IngredientName} IngredientQty={IngredientQty} />
       </Dialog>
       
+    </>
+  );
+}
+
+export function FeaturedCard ({ featuredDrink }) {
+
+  const classes = useStyles();
+
+  const [data, setData] = useState(null)
+  const [open, setOpen] = useState(false);
+  const [IngredientName, setIngredientName] = useState([])
+  const [IngredientQty, setIngredientQty] = useState([])
+  const [singleDrink, setsingleDrink] = useState(null)
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setTimeout(function(){ setIngredientName([]); setIngredientQty([]); }, 400);
+    
+  };
+
+useEffect(() => {
+
+  const printMe = (printData) => {
+
+    for (let key in printData) {
+      if (printData[key] && printData[key] !== "" && key.includes('Ingredient')) {
+        setIngredientName(prevArr => [...prevArr, printData[key]])
+      }
+
+      if (printData[key] && printData[key] !== "" && key.includes('Measure')) {
+        setIngredientQty(prevArr => [...prevArr, printData[key]])
+      } else if (key.includes('Measure') && !printData[key]) {
+        return
+      }
+    }
+    
+  }
+
+  if (!data) {
+    return //the first click is always null, due to setstate being async. This is for covering that case
+  } else {
+    
+    handleOpen()
+    setsingleDrink(data.drinks[0])
+    let print = data
+    printMe(print.drinks[0])
+
+  }
+  
+}, [data]);
+
+const handleClick = async (fetchId) => { 
+
+    axios.get(`/.netlify/functions/fetch-by-Id?idQuery=${fetchId}`)
+            .then(result => {setData(result.data)})
+}
+
+  return (
+    <>
+      <Card className={classes.root} onClick={ () => handleClick(featuredDrink.idDrink) }>
+        <CardActionArea>
+            <CardMedia
+                component="img"
+                alt={featuredDrink.strDrink}
+                height="auto"
+                image={featuredDrink.strDrinkThumb}
+                title={featuredDrink.strDrink}
+            />
+            <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                    {featuredDrink.strDrink}
+                </Typography>
+                {/* <Typography variant="body2" color="textSecondary" component="p">
+                    {featuredDrink.strInstructions}
+                </Typography> */}
+            </CardContent>
+        </CardActionArea>
+      </Card>
+      <Dialog
+          className={classes.root}
+          open={open}
+          onClose={handleClose}
+          scroll={'paper'}
+          aria-labelledby="scroll-dialog-title"
+          aria-describedby="scroll-dialog-description"
+        >
+          <DetailModal {...singleDrink} IngredientName={IngredientName} IngredientQty={IngredientQty} />
+      </Dialog> 
     </>
   );
 }

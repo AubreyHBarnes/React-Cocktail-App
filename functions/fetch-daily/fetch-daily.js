@@ -5,7 +5,7 @@ const axios = require('axios')
 const handler = async (event) => {
 
   const API_SECRET = process.env.API_SECRET
-  const url = `https://www.thecocktaildb.com/api/json/v2/${API_SECRET}/randomselection.php`
+  const url = `https://www.thecocktaildb.com/api/json/v2/${API_SECRET}/random.php`
 
   try {
     const { data } = await axios.get(url)

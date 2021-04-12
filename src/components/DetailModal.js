@@ -1,8 +1,6 @@
 
 import React, {  useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import Dialog from '@material-ui/core/Dialog'
-// import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -29,7 +27,6 @@ const containerStyles = makeStyles(() => ({
 export default function DetailModal(props) {
 
   const modalClasses = containerStyles();
-  // const [recipe, setRecipe] = useState([])
 
   const descriptionElementRef = React.useRef(null);
 
@@ -40,11 +37,7 @@ export default function DetailModal(props) {
       descriptionElement.focus();
       
     }
-    // for (let i = 0; i < props.IngredientName.length; i++) {
-    //   setRecipe(prevArr => [...prevArr, `${props.IngredientQty[i] + ' ' + props.IngredientName[i]}`])
-    // }
-
-    // console.log(recipe)
+    
   }, []);
 
   let recipe = [];
