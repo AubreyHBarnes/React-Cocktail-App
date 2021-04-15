@@ -200,9 +200,6 @@ const handleClick = async (fetchId) => {
                 <Typography gutterBottom variant="h5" component="h2">
                     {featuredDrink.strDrink}
                 </Typography>
-                {/* <Typography variant="body2" color="textSecondary" component="p">
-                    {featuredDrink.strInstructions}
-                </Typography> */}
             </CardContent>
         </CardActionArea>
       </Card>

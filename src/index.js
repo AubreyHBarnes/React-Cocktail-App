@@ -4,10 +4,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import RandomTen from './components/RandomTen';
 import Popular from './components/Popular'
 import DailyDrink from './components/DailyDrink';
+import SearchName from './components/SearchName'
 ReactDOM.render(
   <>
     <CssBaseline />
     <DailyDrink />
+    <SearchName />
     <RandomTen />
     <Popular />
   </>,
