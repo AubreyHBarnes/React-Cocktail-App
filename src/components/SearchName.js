@@ -52,10 +52,10 @@ export default function SearchName() {
         <>
             <div className={classes.formContainer}>
                 <form className={classes.root} onSubmit={event => handleSubmit(event)} noValidate autoComplete="off">
-                    <TextField id="outlined-basic" label="Search by Name" onInput={event => setSearchTerm(event.target.value)} variant="outlined"  /> {/*  */}
+                    <TextField id="outlined-basic" label="Search by Name" onInput={event => setSearchTerm(event.target.value)} variant="outlined"  /> 
                 </form>
             </div>
-            {childOpen && data ? <SearchResults setChildOpen={setChildOpen} results={data.drinks} /> : null}
+            {childOpen && data.drinks ? <SearchResults setChildOpen={setChildOpen} results={data.drinks} /> : null}
         </>
     );
 }

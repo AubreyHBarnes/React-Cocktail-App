@@ -38,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  resultsTile: {
+    margin: '.25rem'
+  },
+  gListTile: {
+    padding: '.125rem'
+  }
 }));
 
 export default function SimpleCard(props) {
@@ -73,19 +79,16 @@ useEffect(() => {
       } else if (key.includes('Measure') && !printData[key]) {
         return
       }
-    }
-    
+    }  
   }
 
   if (!data) {
     return //the first click is always null, due to setstate being async. This is for covering that case
   } else {
-    
     handleOpen()
     setsingleDrink(data.drinks[0])
     let print = data
     printMe(print.drinks[0])
-
   }
   
 }, [data]);
@@ -93,17 +96,13 @@ useEffect(() => {
 const handleClick = async (fetchId) => {
     const result = await axios(`/.netlify/functions/fetch-by-Id?idQuery=${fetchId}`)
     setData(result.data)
-    
-    
 }
-
-
 
   return (
     <>
 
       {props.randomDrinks.map(drink => (
-        <GridListTile key={drink.idDrink} onClick={() => { handleClick(drink.idDrink) }}> 
+        <GridListTile key={drink.idDrink} onClick={() => { handleClick(drink.idDrink) }} className={classes.gListTile}> 
             <img src={drink.strDrinkThumb + `/preview`} alt={drink.strDrink} />
             
             <GridListTileBar
@@ -218,3 +217,83 @@ const handleClick = async (fetchId) => {
 }
 
 
+export function DisplayResults(props) {
+  const classes = useStyles();
+
+  const [data, setData] = useState(null)
+  const [open, setOpen] = useState(false);
+  const [IngredientName, setIngredientName] = useState([])
+  const [IngredientQty, setIngredientQty] = useState([])
+  const [singleDrink, setsingleDrink] = useState(null)
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setTimeout(function(){ setIngredientName([]); setIngredientQty([]); }, 400);
+    
+  };
+
+useEffect(() => {
+
+  const printMe = (printData) => {
+
+    for (let key in printData) {
+      if (printData[key] && printData[key] !== "" && key.includes('Ingredient')) {
+        setIngredientName(prevArr => [...prevArr, printData[key]])
+      }
+
+      if (printData[key] && printData[key] !== "" && key.includes('Measure')) {
+        setIngredientQty(prevArr => [...prevArr, printData[key]])
+      } else if (key.includes('Measure') && !printData[key]) {
+        return
+      }
+    }  
+  }
+
+  if (!data) {
+    return //the first click is always null, due to setstate being async. This is for covering that case
+  } else {
+    handleOpen()
+    setsingleDrink(data.drinks[0])
+    let print = data
+    printMe(print.drinks[0])
+  }
+  
+}, [data]);
+
+const handleClick = async (fetchId) => {
+    const result = await axios(`/.netlify/functions/fetch-by-Id?idQuery=${fetchId}`)
+    setData(result.data)
+}
+
+  return (
+    <>
+
+      {props.results.map(drink => (
+        <GridListTile key={drink.idDrink} onClick={() => { handleClick(drink.idDrink) }} className={classes.resultsTile}> 
+            <img src={drink.strDrinkThumb + `/preview`} alt={drink.strDrink} />
+            
+            <GridListTileBar
+            title={drink.strDrink}
+            className={classes.title}
+            />
+        </GridListTile>
+         ))}
+
+        <Dialog
+          className={classes.root}
+          open={open}
+          onClose={handleClose}
+          scroll={'paper'}
+          aria-labelledby="scroll-dialog-title"
+          aria-describedby="scroll-dialog-description"
+        >
+          <DetailModal {...singleDrink} IngredientName={IngredientName} IngredientQty={IngredientQty} />
+      </Dialog>
+      
+    </>
+  );
+}
