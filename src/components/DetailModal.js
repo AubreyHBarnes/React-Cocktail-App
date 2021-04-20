@@ -20,6 +20,7 @@ const styles = (theme) => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
+  
 });
 
 const DialogTitle = withStyles(styles)((props) => {
@@ -45,7 +46,11 @@ const containerStyles = makeStyles(() => ({
     position: 'absolute',
     bottom: '25px',
     left: '25px',
-    background: "rgba(255, 255, 255, 0.5)"
+    background: 'rgba( 255, 255, 255, 0.25 )',
+    boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',
+    backdropFilter: 'blur( 4px )',
+    // -webkit-backdrop-filter: 'blur( 4px )',
+    borderRadius: '10px',
   },
   modalImg: {
     width: '100%',
@@ -53,6 +58,12 @@ const containerStyles = makeStyles(() => ({
   },
   txtDiv: {
     padding: '1rem 2rem'
+  },
+  bodyTxt: {
+    fontFamily: [
+      'Playfair Display',
+      'sans-serif',
+    ].join(','),
   }
 }));
 
@@ -88,21 +99,22 @@ export default function DetailModal(props) {
   }
 
   return (
-<>
-    <div className={modalClasses.modalHeader}>
-      <DialogTitle className={modalClasses.modalTitle} id="scroll-dialog-title">{props.strDrink}</DialogTitle>
-      <img className={modalClasses.modalImg} alt={props.strDrink} src={props.strDrinkThumb} />
-    </div>
-        <DialogContent dividers={true}>
-          {recipe}
-          <DialogContentText
-            id="scroll-dialog-description"
-            ref={descriptionElementRef}
-            tabIndex={-1}
-          >
-            {props.strInstructions}
-          </DialogContentText>
-        </DialogContent>
+    <>
+      <div className={modalClasses.modalHeader}>
+        <DialogTitle className={modalClasses.modalTitle} id="scroll-dialog-title">{props.strDrink}</DialogTitle>
+        <img className={modalClasses.modalImg} alt={props.strDrink} src={props.strDrinkThumb} />
+      </div>
+      <DialogContent dividers={true}>
+        {recipe}
+        <DialogContentText
+          id="scroll-dialog-description"
+          ref={descriptionElementRef}
+          tabIndex={-1}
+          // className={modalClasses.bodyTxt}
+        >
+          {props.strInstructions}
+        </DialogContentText>
+      </DialogContent>
     </>
   );
 }
