@@ -3,7 +3,6 @@ import React, {  useEffect } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-// import DialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -46,11 +45,16 @@ const containerStyles = makeStyles(() => ({
     position: 'absolute',
     bottom: '25px',
     left: '25px',
-    background: 'rgba( 255, 255, 255, 0.25 )',
+    background: 'rgba( 19, 7, 12, 0.25 )',
     boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',
     backdropFilter: 'blur( 4px )',
     // -webkit-backdrop-filter: 'blur( 4px )',
     borderRadius: '10px',
+    color: '#eff9f0',
+    // fontFamily: [ //Not overriding default font family (Roboto)
+    //   'Playfair Display',
+    //   'serif',
+    // ].join(','),
   },
   modalImg: {
     width: '100%',
@@ -61,7 +65,7 @@ const containerStyles = makeStyles(() => ({
   },
   bodyTxt: {
     fontFamily: [
-      'Playfair Display',
+      'Lato',
       'sans-serif',
     ].join(','),
   }
@@ -110,7 +114,7 @@ export default function DetailModal(props) {
           id="scroll-dialog-description"
           ref={descriptionElementRef}
           tabIndex={-1}
-          // className={modalClasses.bodyTxt}
+          className={modalClasses.bodyTxt}
         >
           {props.strInstructions}
         </DialogContentText>

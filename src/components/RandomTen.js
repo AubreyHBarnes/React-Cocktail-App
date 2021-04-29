@@ -22,8 +22,11 @@ function RandomTen() {
   useEffect(() => {
 
     async function fetchData() {
-      const result = await axios(`/.netlify/functions/fetch-random`);
-      setData(result.data);
+      // const result = await axios(`/.netlify/functions/fetch-random`);
+      // setData(result.data);
+
+      axios.get(`/.netlify/functions/fetch-random`)
+        .then(result => setData(result.data))
 
     }
 

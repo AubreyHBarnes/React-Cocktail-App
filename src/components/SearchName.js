@@ -43,9 +43,7 @@ export default function SearchName() {
             .then(setChildOpen(true))
         } else {
             console.log('please enter a search term')
-        }
-        
-        
+        }  
     }
 
     return (
